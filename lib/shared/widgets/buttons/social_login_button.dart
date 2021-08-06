@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_images.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
+import 'package:payflow/shared/widgets/dividers/divider_vertical.dart';
 
 class SocialLoginButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -26,7 +27,7 @@ class SocialLoginButton extends StatelessWidget {
                   SizedBox(width: 18),
                   Image.asset(AppImages.google),
                   SizedBox(width: 18),
-                  Container(width: 1, height: 56, color: AppColors.stroke)
+                  DividerVertical()
                 ],
               )),
           Expanded(
