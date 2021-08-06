@@ -102,8 +102,11 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
                   children: [
                     Expanded(
                         child: LabelButton(
-                            text: "Inserir código do boleto",
-                            onPressed: () {})),
+                            text: "Digitar código do boleto",
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(
+                                  context, "/insert_boleto");
+                            })),
                     DividerVertical(),
                     Expanded(
                         child: LabelButton(
@@ -125,13 +128,14 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
                     primaryOnPressed: () {
                       controller.scanWithCamera();
                     },
-                    secondText: "Digitar código",
+                    secondText: "Digitar código do boleto",
                     secondOnPressed: () {
                       Navigator.pushReplacementNamed(context, "/insert_boleto");
                     },
                   );
                 } else {
-                  return Container(color: Colors.transparent);
+                  return Container(
+                      color: Colors.transparent, height: 1, width: 1);
                 }
               }),
         ],

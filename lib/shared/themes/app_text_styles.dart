@@ -43,6 +43,11 @@ class TextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.primary,
   );
+  static final buttonDelete = GoogleFonts.inter(
+    fontSize: 15,
+    fontWeight: FontWeight.w400,
+    color: AppColors.delete,
+  );
   static final buttonHeading = GoogleFonts.inter(
     fontSize: 15,
     fontWeight: FontWeight.w400,
@@ -77,6 +82,11 @@ class TextStyles {
     fontSize: 15,
     fontWeight: FontWeight.w700,
     color: AppColors.background,
+  );
+  static final input = GoogleFonts.inter(
+    fontSize: 15,
+    fontWeight: FontWeight.w400,
+    color: AppColors.input,
   );
   static final captionBackground = GoogleFonts.inter(
     fontSize: 13,
