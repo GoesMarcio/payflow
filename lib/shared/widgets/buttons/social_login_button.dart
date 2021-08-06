@@ -1,17 +1,31 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_images.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
 import 'package:payflow/shared/widgets/dividers/divider_vertical.dart';
 
-class SocialLoginButton extends StatelessWidget {
+class SocialLoginButton extends StatefulWidget {
   final VoidCallback onTap;
+
   const SocialLoginButton({Key? key, required this.onTap}) : super(key: key);
+
+  @override
+  _SocialLoginButtonState createState() => _SocialLoginButtonState();
+}
+
+class _SocialLoginButtonState extends State<SocialLoginButton> {
+  int _state = 0;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: () {
+        animateButton();
+        widget.onTap();
+        // stopButton();
+      },
       child: Container(
         height: 56,
         decoration: BoxDecoration(
@@ -36,12 +50,41 @@ class SocialLoginButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Entrar com o Google", style: TextStyles.buttonGray),
+                setUpButtonChild(),
               ],
             ),
           ),
         ]),
       ),
     );
+  }
+
+  Widget setUpButtonChild() {
+    if (_state == 0) {
+      return Text("Entrar com o Google", style: TextStyles.buttonGray);
+    } else if (_state == 1) {
+      return Container(
+        width: 18,
+        height: 18,
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(AppColors.grey),
+          strokeWidth: 3,
+        ),
+      );
+    } else {
+      return Icon(Icons.check, color: AppColors.grey);
+    }
+  }
+
+  void animateButton() {
+    setState(() {
+      _state = 1;
+    });
+  }
+
+  void stopButton() {
+    setState(() {
+      _state = 2;
+    });
   }
 }

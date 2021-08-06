@@ -29,9 +29,12 @@ class _HomePageState extends State<HomePage> {
           height: 152,
           decoration: BoxDecoration(
             gradient: RadialGradient(
-                colors: [AppColors.primaryLight, AppColors.primary],
-                center: Alignment.bottomCenter,
-                radius: 1),
+              colors: [AppColors.primaryLight, AppColors.primary],
+              stops: [0, 1],
+              center: Alignment.bottomCenter,
+              focal: Alignment.bottomCenter,
+              radius: 1,
+            ),
           ),
           child: Center(
             child: ListTile(
@@ -97,6 +100,7 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   controller.setPage(1);
                   setState(() {});
+                  Navigator.pushNamed(context, "/login");
                 },
                 icon: Icon(
                   Icons.description_outlined,

@@ -15,9 +15,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final controller = LoginController();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Center(
       child: Scaffold(
           backgroundColor: AppColors.background,
@@ -27,29 +29,30 @@ class _LoginPageState extends State<LoginPage> {
             child: Stack(children: [
               Container(
                 width: size.width,
-                height: size.height * 0.36,
+                height: size.height * 0.38,
                 decoration: BoxDecoration(
                   gradient: RadialGradient(
                       colors: [AppColors.primaryLight, AppColors.primary],
                       center: Alignment.bottomCenter,
+                      focal: Alignment.bottomCenter,
                       radius: 1),
                 ),
               ),
               Positioned(
-                  top: 40,
+                  top: size.height * 0.08,
                   // left: size.width * 0.5 - 104,
                   left: 0,
                   right: 0,
-                  child:
-                      Image.asset(AppImages.person, width: 208, height: 300)),
+                  child: Image.asset(AppImages.person,
+                      width: size.width, height: size.height * 0.46)),
               Positioned(
-                  top: 250,
+                  top: size.height * (0.427),
                   // left: size.width * 0.5 - 104,
                   left: 0,
                   right: 0,
                   child: Container(
-                      width: 208,
-                      height: 92,
+                      width: size.width,
+                      height: size.height * 0.113,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               begin: Alignment.topCenter,
