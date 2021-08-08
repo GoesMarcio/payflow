@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:payflow/modules/extract/extract_page.dart';
 import 'package:payflow/modules/home/home_controller.dart';
+import 'package:payflow/modules/meus_boletos/meus_boletos_page.dart';
 import 'package:payflow/shared/models/user_model.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
@@ -14,14 +16,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final controller = HomeController();
-  final pages = [
-    Container(
-      color: Colors.white,
-    ),
-    Container(color: Colors.blue),
-  ];
   @override
   Widget build(BuildContext context) {
+    var pages = [
+      MeusBoletosPage(
+        key: UniqueKey(),
+      ),
+      ExtractPage(
+        key: UniqueKey(),
+      ),
+    ];
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(152),
@@ -78,11 +82,15 @@ class _HomePageState extends State<HomePage> {
                 },
                 icon: Icon(
                   Icons.home,
-                  color: AppColors.primary,
+                  color: controller.currentPage == 0
+                      ? AppColors.primary
+                      : AppColors.body,
                 )),
             GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, "/barcode_scanner");
+              onTap: () async {
+                // setState(() {});
+                await Navigator.pushNamed(context, "/barcode_scanner");
+                setState(() {});
               },
               child: Container(
                 width: 56,
@@ -100,11 +108,13 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   controller.setPage(1);
                   setState(() {});
-                  Navigator.pushNamed(context, "/login");
+                  // Navigator.pushNamed(context, "/login");
                 },
                 icon: Icon(
                   Icons.description_outlined,
-                  color: AppColors.body,
+                  color: controller.currentPage == 1
+                      ? AppColors.primary
+                      : AppColors.body,
                 ))
           ],
         ),
