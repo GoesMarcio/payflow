@@ -1,10 +1,14 @@
+import 'package:animated_card/animated_card.dart';
+import 'package:animated_card/animated_card_direction.dart';
 import 'package:flutter/material.dart';
 import 'package:payflow/modules/extract/extract_page.dart';
 import 'package:payflow/modules/home/home_controller.dart';
 import 'package:payflow/modules/meus_boletos/meus_boletos_page.dart';
+import 'package:payflow/shared/models/boleto_model.dart';
 import 'package:payflow/shared/models/user_model.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
+import 'package:payflow/shared/widgets/boleto_list/boleto_list_controller.dart';
 
 class HomePage extends StatefulWidget {
   final UserModel user;
@@ -16,6 +20,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final controller = HomeController();
+
+  final expandedNotifier = ValueNotifier<bool>(false);
+  bool get expanded => expandedNotifier.value;
+  set expanded(bool value) => expandedNotifier.value = value;
+
+  final controller_boletos = BoletoListController();
+
   @override
   Widget build(BuildContext context) {
     var pages = [
@@ -56,66 +67,121 @@ class _HomePageState extends State<HomePage> {
                 "Mantenha suas contas em dia!",
                 style: TextStyles.captionShape,
               ),
-              trailing: Container(
-                height: 48,
-                width: 48,
-                decoration: BoxDecoration(
-                    color: AppColors.grey,
-                    borderRadius: BorderRadius.circular(5),
-                    image: DecorationImage(
-                        image: NetworkImage(widget.user.photoURL!))),
-              ),
+              trailing: ValueListenableBuilder<bool>(
+                  valueListenable: expandedNotifier,
+                  builder: (_, expanded_d, __) {
+                    return AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      height: 48,
+                      width: expanded_d ? 96 : 48,
+                      decoration: BoxDecoration(
+                        color: AppColors.delete,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Row(
+                        children: [
+                          expanded_d
+                              ? Expanded(
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.exit_to_app,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pushReplacementNamed(
+                                          context, "/login");
+                                      // controller.googleLogOut(context);
+                                    },
+                                  ),
+                                )
+                              : Expanded(
+                                  child: Container(),
+                                ),
+                          InkWell(
+                            onTap: () {
+                              expanded = !expanded;
+                            },
+                            child: Container(
+                              height: 48,
+                              width: 48,
+                              decoration: BoxDecoration(
+                                  color: AppColors.grey,
+                                  borderRadius: BorderRadius.circular(5),
+                                  image: DecorationImage(
+                                      image:
+                                          NetworkImage(widget.user.photoURL!))),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
             ),
           ),
         ),
       ),
-      body: pages[controller.currentPage],
+      body: ValueListenableBuilder<List<BoletoModel>>(
+          valueListenable: controller_boletos.boletosNotifier,
+          builder: (_, __, ___) => pages[controller.currentPage]),
       bottomNavigationBar: Container(
         height: 90,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(
-                onPressed: () {
-                  controller.setPage(0);
+            AnimatedCard(
+              direction: AnimatedCardDirection.left,
+              child: IconButton(
+                  onPressed: () {
+                    if (controller.currentPage == 0) return;
+
+                    controller.setPage(0);
+                    setState(() {});
+                  },
+                  icon: Icon(
+                    Icons.home,
+                    color: controller.currentPage == 0
+                        ? AppColors.primary
+                        : AppColors.body,
+                  )),
+            ),
+            AnimatedCard(
+              direction: AnimatedCardDirection.bottom,
+              child: InkWell(
+                onTap: () async {
+                  // setState(() {});
+                  await Navigator.pushNamed(context, "/barcode_scanner");
                   setState(() {});
                 },
-                icon: Icon(
-                  Icons.home,
-                  color: controller.currentPage == 0
-                      ? AppColors.primary
-                      : AppColors.body,
-                )),
-            GestureDetector(
-              onTap: () async {
-                // setState(() {});
-                await Navigator.pushNamed(context, "/barcode_scanner");
-                setState(() {});
-              },
-              child: Container(
-                width: 56,
-                height: 56,
-                decoration: BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(5)),
-                child: Icon(
-                  Icons.add_box_outlined,
-                  color: AppColors.background,
+                child: Container(
+                  width: 56,
+                  height: 56,
+                  decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Icon(
+                    Icons.add_box_outlined,
+                    color: AppColors.background,
+                  ),
                 ),
               ),
             ),
-            IconButton(
-                onPressed: () {
-                  controller.setPage(1);
-                  setState(() {});
-                  // Navigator.pushNamed(context, "/login");
-                },
-                icon: Icon(
-                  Icons.description_outlined,
-                  color: controller.currentPage == 1
-                      ? AppColors.primary
-                      : AppColors.body,
-                ))
+            AnimatedCard(
+              direction: AnimatedCardDirection.right,
+              child: IconButton(
+                  onPressed: () {
+                    if (controller.currentPage == 1) return;
+
+                    controller.setPage(1);
+                    setState(() {});
+                    // Navigator.pushNamed(context, "/login");
+                  },
+                  icon: Icon(
+                    Icons.description_outlined,
+                    color: controller.currentPage == 1
+                        ? AppColors.primary
+                        : AppColors.body,
+                  )),
+            )
           ],
         ),
       ),

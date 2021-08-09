@@ -3,6 +3,7 @@ import 'package:payflow/modules/barcode_scanner/barcode_scanner_controller.dart'
 import 'package:payflow/modules/barcode_scanner/barcode_scanner_status.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
+import 'package:payflow/shared/widgets/back_button/back_button_widget.dart';
 import 'package:payflow/shared/widgets/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:payflow/shared/widgets/buttons/label_button.dart';
 import 'package:payflow/shared/widgets/dividers/divider_vertical.dart';
@@ -37,15 +38,6 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
 
   @override
   Widget build(BuildContext context) {
-    // return BottomSheetWidget(
-    //   title: "Não foi possível identificar um código de barras.",
-    //   subtitle: "Tente escanear novamente ou digite o código do seu boleto.",
-    //   primaryText: "Escanear novamente",
-    //   primaryOnPressed: () {},
-    //   secondText: "Digitar código",
-    //   secondOnPressed: () {},
-    // );
-
     return SafeArea(
       top: true,
       bottom: true,
@@ -72,9 +64,7 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
                 backgroundColor: Colors.black,
                 title: Text("Escaneie o código de barras do boleto",
                     style: TextStyles.buttonBackground),
-                leading: BackButton(
-                  color: AppColors.background,
-                ),
+                leading: BackButtonWidget(),
                 centerTitle: true,
               ),
               body: Column(children: [
@@ -110,7 +100,10 @@ class _BarCodeScannerPageState extends State<BarCodeScannerPage> {
                     DividerVertical(),
                     Expanded(
                         child: LabelButton(
-                            text: "Adicionar da galeria", onPressed: () {})),
+                            text: "Adicionar da galeria",
+                            onPressed: () {
+                              controller.scanWithImagePicker();
+                            })),
                   ],
                 ),
               ),

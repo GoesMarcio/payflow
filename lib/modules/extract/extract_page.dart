@@ -18,34 +18,42 @@ class _ExtractPageState extends State<ExtractPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 24),
-                child: Row(
-                  children: [
-                    Text("Meus extratos", style: TextStyles.titleBoldHeading),
-                  ],
-                ),
+    final size = MediaQuery.of(context).size;
+
+    return Container(
+      height: size.height - 90 - 152,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24),
+                    child: Row(
+                      children: [
+                        Text("Meus extratos",
+                            style: TextStyles.titleBoldHeading),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 24),
+                    child: Divider(
+                      thickness: 1,
+                      height: 1,
+                      color: AppColors.stroke,
+                    ),
+                  ),
+                  SingleChildScrollView(
+                      child: BoletoListWidget(controller: controller))
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                child: Divider(
-                  thickness: 1,
-                  height: 1,
-                  color: AppColors.stroke,
-                ),
-              ),
-              SingleChildScrollView(
-                  child: BoletoListWidget(controller: controller))
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

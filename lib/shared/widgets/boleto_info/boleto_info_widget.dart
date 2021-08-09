@@ -12,7 +12,8 @@ class BoletoInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedCard(
-      direction: AnimatedCardDirection.right,
+      direction: AnimatedCardDirection.top,
+      duration: Duration(milliseconds: 400),
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.secondary,

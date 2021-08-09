@@ -18,34 +18,38 @@ class _MeusBoletosPageState extends State<MeusBoletosPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              Container(
-                  color: AppColors.primary,
-                  width: double.maxFinite,
-                  height: 40),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: ValueListenableBuilder<List<BoletoModel>>(
-                    valueListenable: controller.boletosNotifier,
-                    builder: (_, boletos, __) =>
-                        BoletoInfoWidget(size: boletos.length)),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+    final size = MediaQuery.of(context).size;
+
+    return Column(
+      children: [
+        Stack(
+          children: [
+            Container(
+                color: AppColors.primary, width: double.maxFinite, height: 40),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: ValueListenableBuilder<List<BoletoModel>>(
+                  valueListenable: controller.boletosNotifier,
+                  builder: (_, boletos, __) =>
+                      BoletoInfoWidget(size: boletos.length)),
+            ),
+          ],
+        ),
+        Container(
+          height: size.height - 90 - 152 - 52 - 24 - 6,
+          child: SingleChildScrollView(
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 24),
-                  child: Row(
-                    children: [
-                      Text("Meus boletos", style: TextStyles.titleBoldHeading),
-                    ],
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 24),
+                    child: Row(
+                      children: [
+                        Text("Meus boletos",
+                            style: TextStyles.titleBoldHeading),
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
@@ -56,12 +60,15 @@ class _MeusBoletosPageState extends State<MeusBoletosPage> {
                     color: AppColors.stroke,
                   ),
                 ),
-                BoletoListWidget(controller: controller)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: BoletoListWidget(controller: controller),
+                )
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

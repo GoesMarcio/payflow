@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:payflow/modules/insert_boleto/insert_boleto_controller.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
+import 'package:payflow/shared/widgets/back_button/back_button_widget.dart';
 import 'package:payflow/shared/widgets/buttons/label_button.dart';
 import 'package:payflow/shared/widgets/dividers/divider_vertical.dart';
 import 'package:payflow/shared/widgets/input_text/input_text_widget.dart';
@@ -43,7 +44,7 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
-        leading: BackButton(color: AppColors.input),
+        leading: BackButtonWidget(color: AppColors.input),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -57,11 +58,11 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
                 textAlign: TextAlign.center,
               ),
             ),
-            Text(
-              widget.barcode!,
-              style: TextStyles.buttonBoldHeading,
-              textAlign: TextAlign.center,
-            ),
+            // Text(
+            //   widget.barcode!,
+            //   style: TextStyles.buttonBoldHeading,
+            //   textAlign: TextAlign.center,
+            // ),
             SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),

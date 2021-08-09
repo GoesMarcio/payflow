@@ -5,6 +5,7 @@ import 'package:payflow/shared/models/user_model.dart';
 
 class LoginController {
   var auth = AuthController();
+  
   Future<void> googleSignIn(BuildContext context) async {
     GoogleSignIn _googleSignIn = GoogleSignIn(
       scopes: ['email'],
