@@ -14,6 +14,7 @@ class BoletoInfoWidget extends StatelessWidget {
     return AnimatedCard(
       direction: AnimatedCardDirection.top,
       duration: Duration(milliseconds: 400),
+      curve: Curves.easeOutCirc,
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.secondary,

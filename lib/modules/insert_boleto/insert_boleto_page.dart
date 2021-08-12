@@ -7,7 +7,10 @@ import 'package:payflow/shared/themes/app_text_styles.dart';
 import 'package:payflow/shared/widgets/back_button/back_button_widget.dart';
 import 'package:payflow/shared/widgets/buttons/label_button.dart';
 import 'package:payflow/shared/widgets/dividers/divider_vertical.dart';
+import 'package:payflow/shared/widgets/input_text/input_date_widget.dart';
 import 'package:payflow/shared/widgets/input_text/input_text_widget.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
 
 class InsertBoletoPage extends StatefulWidget {
   final String? barcode;
@@ -38,6 +41,7 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
   @override
   Widget build(BuildContext context) {
     final controller = InsertBoletoController();
+    final format = DateFormat("dd/MM/yyyy");
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -78,13 +82,23 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
                         controller.onChanged(name: value);
                       },
                     ),
-                    InputTextWidget(
+                    // InputTextWidget(
+                    //   label: "Vencimento",
+                    //   controller: dueDateTextController,
+                    //   validator: controller.validateVencimento,
+                    //   icon: FontAwesomeIcons.timesCircle,
+                    //   onChanged: (value) {
+                    //     controller.onChanged(dueDate: value);
+                    //   },
+                    // ),
+                    InputDateWidget(
+                      format: format,
                       label: "Vencimento",
                       controller: dueDateTextController,
-                      validator: controller.validateVencimento,
+                      // validator: controller.validateVencimento,
                       icon: FontAwesomeIcons.timesCircle,
                       onChanged: (value) {
-                        controller.onChanged(dueDate: value);
+                        controller.onChanged(dueDate: value.toString());
                       },
                     ),
                     InputTextWidget(

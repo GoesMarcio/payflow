@@ -72,6 +72,46 @@ class _LoginPageState extends State<LoginPage> {
                             AppColors.white100
                           ])))),
               Positioned(
+                  left: size.width * 0.1573,
+                  top: size.height * 0.344,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                              color: AppColors.secondary,
+                              spreadRadius: 10,
+                              blurRadius: 0,
+                              offset: Offset(0, 0)),
+                        ]),
+                    child: Center(
+                      child: Icon(
+                        Icons.add_box_outlined,
+                        color: AppColors.stroke,
+                      ),
+                    ),
+                  )),
+              Positioned(
+                  right: size.width * 0.1573,
+                  top: size.height * 0.227,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                              color: AppColors.secondary,
+                              spreadRadius: 10,
+                              blurRadius: 0,
+                              offset: Offset(0, 0)),
+                        ]),
+                    child: Center(
+                      child: Icon(
+                        Icons.description_outlined,
+                        color: AppColors.stroke,
+                      ),
+                    ),
+                  )),
+              Positioned(
                 bottom: size.height * 0.05,
                 left: 0,
                 right: 0,

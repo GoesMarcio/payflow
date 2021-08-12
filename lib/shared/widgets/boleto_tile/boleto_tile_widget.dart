@@ -1,6 +1,7 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:intl/intl.dart';
 
 import 'package:payflow/shared/models/boleto_model.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
@@ -11,6 +12,8 @@ class BoletoTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final oCcy = new NumberFormat("#,##0.00", "pt_BR");
+
     return AnimatedCard(
       direction: AnimatedCardDirection.right,
       child: Container(
@@ -26,8 +29,8 @@ class BoletoTileWidget extends StatelessWidget {
               children: [
                 TextSpan(
                     text: data.value == null
-                        ? 0.toStringAsFixed(2).replaceFirst(".", ",")
-                        : data.value!.toStringAsFixed(2).replaceFirst(".", ","),
+                        ? oCcy.format(0.0)
+                        : oCcy.format(data.value),
                     style: TextStyles.trailingBold)
               ])),
         ),

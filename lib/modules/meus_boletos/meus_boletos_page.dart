@@ -1,3 +1,4 @@
+import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
 import 'package:payflow/shared/models/boleto_model.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
@@ -24,8 +25,16 @@ class _MeusBoletosPageState extends State<MeusBoletosPage> {
       children: [
         Stack(
           children: [
-            Container(
-                color: AppColors.primary, width: double.maxFinite, height: 40),
+            AnimatedCard(
+              curve: Curves.easeOutCirc,
+              direction: AnimatedCardDirection.top,
+              duration: Duration(milliseconds: 400),
+              child: Container(
+                width: double.maxFinite,
+                height: 40,
+                color: AppColors.primary,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: ValueListenableBuilder<List<BoletoModel>>(
