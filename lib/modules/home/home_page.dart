@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:payflow/modules/extract/extract_page.dart';
 import 'package:payflow/modules/home/home_controller.dart';
 import 'package:payflow/modules/meus_boletos/meus_boletos_page.dart';
-import 'package:payflow/shared/models/boleto_model.dart';
 import 'package:payflow/shared/models/user_model.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
-import 'package:payflow/shared/widgets/boleto_list/boleto_list_controller.dart';
 
 class HomePage extends StatefulWidget {
   final UserModel user;
@@ -25,10 +23,14 @@ class _HomePageState extends State<HomePage> {
   bool get expanded => expandedNotifier.value;
   set expanded(bool value) => expandedNotifier.value = value;
 
-  final controller_boletos = BoletoListController();
-
   @override
   Widget build(BuildContext context) {
+    final Brightness brightnessValue =
+        MediaQuery.of(context).platformBrightness;
+    bool isDark = brightnessValue == Brightness.dark;
+
+    print(isDark);
+
     var pages = [
       MeusBoletosPage(
         key: UniqueKey(),
@@ -37,6 +39,7 @@ class _HomePageState extends State<HomePage> {
         key: UniqueKey(),
       ),
     ];
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(152),
@@ -120,9 +123,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: ValueListenableBuilder<List<BoletoModel>>(
-          valueListenable: controller_boletos.boletosNotifier,
-          builder: (_, __, ___) => pages[controller.currentPage]),
+      body: pages[controller.currentPage],
       bottomNavigationBar: Container(
         height: 90,
         child: Row(
@@ -134,8 +135,9 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     if (controller.currentPage == 0) return;
 
-                    controller.setPage(0);
-                    setState(() {});
+                    setState(() {
+                      controller.setPage(0);
+                    });
                   },
                   icon: Icon(
                     Icons.home,
@@ -148,7 +150,6 @@ class _HomePageState extends State<HomePage> {
               direction: AnimatedCardDirection.bottom,
               child: InkWell(
                 onTap: () async {
-                  // setState(() {});
                   await Navigator.pushNamed(context, "/barcode_scanner");
                   setState(() {});
                 },
@@ -171,8 +172,9 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     if (controller.currentPage == 1) return;
 
-                    controller.setPage(1);
-                    setState(() {});
+                    setState(() {
+                      controller.setPage(1);
+                    });
                     // Navigator.pushNamed(context, "/login");
                   },
                   icon: Icon(

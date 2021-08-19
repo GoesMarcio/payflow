@@ -13,13 +13,22 @@ class BoletoListWidget extends StatefulWidget {
 }
 
 class _BoletoListWidgetState extends State<BoletoListWidget> {
-  final controller = BoletoListController();
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<List<BoletoModel>>(
         valueListenable: widget.controller.boletosNotifier,
-        builder: (_, boletos, __) => Column(
-              children: boletos.map((e) => BoletoTileWidget(data: e)).toList(),
+        builder: (a, boletos, b) => Column(
+              children: boletos
+                  .asMap()
+                  .map((i, e) => MapEntry(
+                      i,
+                      BoletoTileWidget(
+                        data: e,
+                        index: i,
+                        controller: widget.controller,
+                      )))
+                  .values
+                  .toList(),
             ));
   }
 }

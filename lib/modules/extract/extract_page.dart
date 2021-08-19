@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:payflow/shared/models/boleto_model.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
-import 'package:payflow/shared/widgets/boleto_info/boleto_info_widget.dart';
 import 'package:payflow/shared/widgets/boleto_list/boleto_list_controller.dart';
 import 'package:payflow/shared/widgets/boleto_list/boleto_list_widget.dart';
 
@@ -14,7 +13,7 @@ class ExtractPage extends StatefulWidget {
 }
 
 class _ExtractPageState extends State<ExtractPage> {
-  final controller = BoletoListController();
+  final controller = BoletoListController(paid: true);
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +34,14 @@ class _ExtractPageState extends State<ExtractPage> {
                       children: [
                         Text("Meus extratos",
                             style: TextStyles.titleBoldHeading),
+                        Expanded(
+                          child: Container(),
+                        ),
+                        ValueListenableBuilder<List<BoletoModel>>(
+                            valueListenable: controller.boletosNotifier,
+                            builder: (_, boletos, __) => Text(
+                                "${boletos.length} pagos",
+                                style: TextStyles.captionBody))
                       ],
                     ),
                   ),

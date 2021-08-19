@@ -9,7 +9,6 @@ import 'package:payflow/shared/widgets/buttons/label_button.dart';
 import 'package:payflow/shared/widgets/dividers/divider_vertical.dart';
 import 'package:payflow/shared/widgets/input_text/input_date_widget.dart';
 import 'package:payflow/shared/widgets/input_text/input_text_widget.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
 
 class InsertBoletoPage extends StatefulWidget {
@@ -98,7 +97,10 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
                       // validator: controller.validateVencimento,
                       icon: FontAwesomeIcons.timesCircle,
                       onChanged: (value) {
-                        controller.onChanged(dueDate: value.toString());
+                        if (value == null) return;
+                        controller.onChanged(
+                            dueDate:
+                                "${value.day.toString().padLeft(2, '0')}/${value.month.toString().padLeft(2, '0')}/${value.year.toString()}");
                       },
                     ),
                     InputTextWidget(
@@ -153,6 +155,7 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
                         onPressed: () async {
                           await controller.cadastrarBoleto();
                           Navigator.pop(context);
+                          // Navigator.pushReplacementNamed(context, "/home");
                         })),
               ],
             ),
